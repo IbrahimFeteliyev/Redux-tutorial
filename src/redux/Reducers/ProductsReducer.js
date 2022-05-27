@@ -5,7 +5,7 @@ const initialState = {
     products: {}
 }
 
-export const getProductReducer = (state = initialState,action) => {
+export const getProductsReducer = (state = initialState,action) => {
     switch (action.type) {
         case GET_PRODUCTS:
             
