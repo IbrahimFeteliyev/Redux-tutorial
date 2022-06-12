@@ -9,30 +9,29 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Grid, Rating, Skeleton } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { addToCartAction } from '../../redux/actions/CartAction';
-function Product() {
+import { addToCartAction, getCartItems } from '../../redux/actions/CartAction';
 
+function Product() {
   const [cart, setCart] = useState([])
   const getProduct = useSelector((state) => state.products.products.message)
-
+  const carts = useSelector((state) => state.carts.cart)
   const dispach = useDispatch()
 
   useEffect(() => {
-    dispach(GetProductAction())
     dispach(addToCartAction(cart))
-  }, [])
+    dispach(getCartItems())
+    dispach(GetProductAction())
+    
+  }, [cart])
 
   const addToCartHandler = (id,title,price,image) => {
-
       const cartProduct = {
         id: id,
         name: title,
         price: price,
         img: image
       }
-
       setCart([...cart,cartProduct])
-
   }
 
 
@@ -64,7 +63,7 @@ function Product() {
               <Card key={Product.id} sx={{ maxWidth: 345 }}>
                 <CardMedia
                   component="img"
-                  height="140"
+                  height="300"
                   image={product.coverPhoto}
                   alt="green iguana"
                 />
@@ -78,7 +77,7 @@ function Product() {
                 </CardContent>
                 <CardActions>
                   <Button size="small">Share</Button>
-                  <Button onClick={() => addToCartHandler(product.id,product.name,product.price,product.coverPhoto)} size="small"><AddShoppingCartIcon /></Button>
+                  <Button onClick={() => addToCartHandler(product.id,product.name,product.price,product.coverPhoto)} size="small"><AddShoppingCartIcon/></Button>
                   <Rating name="half-rating-read" defaultValue={product.rating} precision={0.5} readOnly />
                 </CardActions>
               </Card>

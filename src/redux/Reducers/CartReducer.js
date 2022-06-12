@@ -1,10 +1,10 @@
-import { ADD_TO_CART } from "../Constans/CartConstans";
+import { ADD_TO_CART, GET_CART_ITEMS } from "../Constans/CartConstans";
 
 const initialState = {
     cart: {}
 }
 
-export const addToCartReducer = (state = initialState,action) => {
+export const CartReducer = (state = initialState,action) => {
     switch (action.type) {
         case ADD_TO_CART:
             
@@ -12,7 +12,13 @@ export const addToCartReducer = (state = initialState,action) => {
             ...state,
             cart: action.payload
         }
-    
+
+        case GET_CART_ITEMS:
+            return{
+                ...state,
+                cart: action.payload
+            }
+
         default:
             return state;
     }
